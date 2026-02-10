@@ -1,5 +1,8 @@
 import { NextRequest } from 'next/server';
-import { PersistentOrderStorage } from '@/lib/persistentStorage';
+import { MemoryOrderStorage } from '@/lib/memoryStorage';
+
+// Mark this route as dynamic to prevent static generation
+export const dynamic = 'force-dynamic';
 
 let connections: ReadableStreamDefaultController[] = [];
 
@@ -24,12 +27,12 @@ export async function GET(request: NextRequest) {
       }
       
       try {
-        const orders = await PersistentOrderStorage.getAll();
-        const pendingApprovals = await PersistentOrderStorage.getPendingDiscountApprovals();
+        const orders = await MemoryOrderStorage.getAll();
+        const pendingApprovals = await MemoryOrderStorage.getPendingDiscountApprovals();
         
         const enrichedApprovals = await Promise.all(pendingApprovals.map(async (approval: any) => {
-          const order = await PersistentOrderStorage.getById(approval.orderId || '');
-          const customer = await PersistentOrderStorage.getCustomerByPhone(approval.phone);
+          const order = await MemoryOrderStorage.getById(approval.orderId || '');
+          const customer = await MemoryOrderStorage.getCustomerByPhone(approval.phone);
           
           return {
             ...approval,
