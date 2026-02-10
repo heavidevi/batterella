@@ -250,11 +250,11 @@ export default function OrdersPage() {
 
                   <div className={styles.orderTotal}>
                     <div className={styles.totalAmount}>
-                      <strong>Total: ${order.totalAmount.toFixed(2)}</strong>
+                      <strong>Total: PKR {order.totalAmount.toFixed(2)}</strong>
                       {order.discountApplied && (
                         <div className={styles.discount}>
                           <span className={styles.originalAmount}>
-                            Original: ${order.originalAmount?.toFixed(2)}
+                            Original: PKR {order.originalAmount?.toFixed(2)}
                           </span>
                           <span className={styles.discountPercent}>
                             {order.discountApplied}% off

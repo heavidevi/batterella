@@ -230,7 +230,7 @@ export default function TrackOrderPage() {
             borderRadius: '8px',
             marginBottom: '2rem'
           }}>
-            Total: ${order.totalAmount?.toFixed(2) || '0.00'}
+            Total: PKR {order.totalAmount?.toFixed(2) || '0.00'}
           </div>
 
           <button

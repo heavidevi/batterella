@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 export default function TrackOrderPage() {
   const [orderId, setOrderId] = useState('');
@@ -8,6 +9,39 @@ export default function TrackOrderPage() {
   const [order, setOrder] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const searchParams = useSearchParams();
+
+  // Auto-load order if ID is provided in URL
+  useEffect(() => {
+    const urlOrderId = searchParams.get('id');
+    if (urlOrderId) {
+      setOrderId(urlOrderId);
+      // Auto-load the order without requiring phone number
+      loadOrderDirectly(urlOrderId);
+    }
+  }, [searchParams]);
+
+  const loadOrderDirectly = async (orderIdToLoad: string) => {
+    setLoading(true);
+    setError('');
+    setOrder(null);
+
+    try {
+      // Try to get order directly by ID
+      const response = await fetch(`/api/orders/${orderIdToLoad}`);
+      
+      if (!response.ok) {
+        throw new Error('Order not found. Please check your order ID.');
+      }
+
+      const orderData = await response.json();
+      setOrder(orderData);
+    } catch (err: any) {
+      setError(err.message || 'Failed to load order');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const trackOrder = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,7 +101,14 @@ export default function TrackOrderPage() {
   };
 
   return (
-    <div className="premium-container">
+    <>
+      <style jsx>{`
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
+      <div className="premium-container">
       {/* Premium Navigation */}
       <nav className="premium-nav">
         <div className="nav-content">
@@ -89,11 +130,44 @@ export default function TrackOrderPage() {
               Track Your Order
             </h1>
             <p className="subtitle" style={{ opacity: 0.8 }}>
-              Enter your order details to see real-time updates
+              {searchParams.get('id') ? 'Loading your order status...' : 'Enter your order details to see real-time updates'}
             </p>
           </div>
           
-          {!order ? (
+          {loading && !order && (
+            <div className="form-card" style={{ textAlign: 'center', padding: '3rem' }}>
+              <div className="loading-spinner" style={{ marginBottom: '1rem' }}>
+                <div className="spinner" style={{ 
+                  width: '40px', 
+                  height: '40px', 
+                  border: '3px solid #f3f3f3',
+                  borderTop: '3px solid #8B4513',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite',
+                  margin: '0 auto'
+                }}></div>
+              </div>
+              <p>Loading your order...</p>
+            </div>
+          )}
+
+          {!loading && !order && error && (
+            <div className="form-card" style={{ textAlign: 'center', padding: '3rem' }}>
+              <div className="error-message">
+                <span className="error-icon">⚠️</span>
+                {error}
+              </div>
+              <button 
+                onClick={() => window.location.href = '/track-order'} 
+                className="btn-secondary" 
+                style={{ marginTop: '1rem' }}
+              >
+                Try Manual Tracking
+              </button>
+            </div>
+          )}
+
+          {!loading && !order && !error && !searchParams.get('id') && (
             <div className="form-card">
               <form onSubmit={trackOrder} className="premium-form">
                 <div className="form-group">
@@ -148,7 +222,9 @@ export default function TrackOrderPage() {
                 </button>
               </form>
             </div>
-          ) : (
+          )}
+
+          {order && (
             <div className="order-results">
               {/* Order Status Header */}
               <div className="status-header">
@@ -229,7 +305,7 @@ export default function TrackOrderPage() {
               <div className="total-card">
                 <div className="total-amount">
                   <span className="total-label">Total</span>
-                  <span className="total-value">${order.totalAmount?.toFixed(2) || '0.00'}</span>
+                  <span className="total-value">PKR {order.totalAmount?.toFixed(2) || '0.00'}</span>
                 </div>
               </div>
 
@@ -250,5 +326,6 @@ export default function TrackOrderPage() {
         </div>
       </main>
     </div>
+    </>
   );
 }

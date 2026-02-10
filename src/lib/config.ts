@@ -4,7 +4,7 @@ export const PRODUCTS = [
     id: 'gingerbread', 
     name: 'Gingerbread', 
     emoji: '👨‍🦲', 
-    price: 5.99,
+    price: 80,
     image: '/images/gingerbread.jpg',
     description: 'Fresh baked gingerbread with warm spices'
   },

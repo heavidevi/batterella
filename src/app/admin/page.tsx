@@ -263,7 +263,7 @@ export default function AdminDashboard() {
                         <div style={{flex: 1}}>
                           <div style={{display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem'}}>
                             <span>{itemName} x{quantity}</span>
-                            <span>${(itemPrice * quantity).toFixed(2)}</span>
+                            <span>PKR {(itemPrice * quantity).toFixed(2)}</span>
                           </div>
                           {toppings.length > 0 && (
                             <div style={{display: 'flex', flexWrap: 'wrap', gap: '0.25rem', marginTop: '0.5rem'}}>
@@ -280,7 +280,7 @@ export default function AdminDashboard() {
                                   }}
                                 >
                                   {topping.name || topping.title || 'Topping'}
-                                  {topping.price ? ` +$${topping.price.toFixed(2)}` : ''}
+                                  {topping.price ? ` +PKR ${topping.price.toFixed(2)}` : ''}
                                 </span>
                               ))}
                             </div>
@@ -293,7 +293,7 @@ export default function AdminDashboard() {
                 
                 {/* Total */}
                 <div style={styles.total}>
-                  Total: ${order.totalAmount?.toFixed(2) || '0.00'}
+                  Total: PKR {order.totalAmount?.toFixed(2) || '0.00'}
                 </div>
 
                 {/* Actions */}

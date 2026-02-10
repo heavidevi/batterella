@@ -42,9 +42,7 @@ export default function HomePage() {
           <Link href="/track-order" className="nav-link">
             Track Order
           </Link>
-          <Link href="/admin" className="nav-link nav-link-subtle">
-            Admin
-          </Link>
+          
         </nav>
       </header>
 
@@ -61,13 +59,13 @@ export default function HomePage() {
         <div className="hero-content">
           <div className="hero-text fade-up">
             <h1 className="hero-headline uncanny-title">
-              <span className="text-large">Batter</span><br/>
-              <span className="text-small">becomes</span>
-              <span className="text-mega">ART</span>
+              <span className="text-medium">Made</span>
+              <span className="text-medium">for</span>
+              <span className="text-mega">You</span>
             </h1>
             
             <p className="hero-subhead uncanny-subtitle">
-              <span className="text-medium">craft.</span> <span className="text-tiny">taste.</span> <span className="text-medium">repeat.</span>
+              <span className="text-medium">craft.</span> <span className="text-medium">taste.</span> <span className="text-medium">repeat.</span>
             </p>
             
             <div className="hero-actions uncanny-actions">
@@ -130,8 +128,8 @@ export default function HomePage() {
           </div>
           <div className="value-content">
             <h2 className="section-title uncanny-section-title genz-title">
-              <span className="text-medium">batter</span>
-              <span className="text-ultra">MASTERY</span>
+              <span className="text-medium">thoughtfully</span>
+              <span className="text-medium">made</span>
             </h2>
             <div className="value-points">
               <span className="value-tag">artisan craft</span>

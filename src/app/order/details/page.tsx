@@ -91,7 +91,7 @@ export default function DetailsPage() {
             type="tel"
             value={phone}
             onChange={handlePhoneChange}
-            placeholder="Enter your phone number"
+            placeholder="+92xxxxxxxxxx in this format"
             className="form-input"
           />
           {phone && !isValidPhone(phone) && (

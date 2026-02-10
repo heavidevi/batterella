@@ -147,7 +147,7 @@ export default function CartPage() {
                     {item.customName || product?.name}
                   </h3>
                   <span className="text-small">
-                    ${product?.price.toFixed(2)}
+                    PKR {product?.price.toFixed(2)}
                   </span>
                 </div>
 
@@ -183,7 +183,7 @@ export default function CartPage() {
 
               <div className={styles.itemTotal}>
                 <span className="text-title">
-                  ${calculateItemTotal(item).toFixed(2)}
+                  PKR {calculateItemTotal(item).toFixed(2)}
                 </span>
               </div>
             </div>
@@ -196,7 +196,7 @@ export default function CartPage() {
           <div className={styles.summaryHeader}>
             <h3 className="text-display">Total</h3>
             <span className="text-hero">
-              ${calculateGrandTotal().toFixed(2)}
+              PKR {calculateGrandTotal().toFixed(2)}
             </span>
           </div>
           

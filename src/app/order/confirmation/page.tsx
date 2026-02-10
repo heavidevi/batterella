@@ -97,7 +97,7 @@ function ConfirmationContent({ orderId }: { orderId: string }) {
           })}
           
           <div className={styles.detail}>
-            <strong>Total Amount:</strong> ${order.totalAmount.toFixed(2)}
+            <strong>Total Amount:</strong> PKR {order.totalAmount.toFixed(2)}
           </div>
           
           <div className={styles.detail}>

@@ -152,7 +152,7 @@ export const PersistentOrderStorage = {
       });
       await writeJsonFile(APPROVALS_FILE, pendingApprovals);
       
-      console.log(`💰 Added discount approval for ${order.phone}: $${order.totalAmount} → $${(order.totalAmount * 0.9).toFixed(2)}`);
+      console.log(`💰 Added discount approval for ${order.phone}: PKR ${order.totalAmount} → PKR ${(order.totalAmount * 0.9).toFixed(2)}`);
     }
 
     return newOrder;

@@ -90,7 +90,7 @@ export default function ToppingsPage() {
               }}
             >
               <span className={styles.itemName}>{topping.name}</span>
-              <div className={styles.toppingPrice}>+${topping.price.toFixed(2)}</div>
+              <div className={styles.toppingPrice}>+PKR {topping.price.toFixed(2)}</div>
               <div className={styles.checkbox}>
                 {isSelected && (
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
@@ -115,13 +115,13 @@ export default function ToppingsPage() {
               const colorClass = colors[index % colors.length];
               return (
                 <span key={index} className={`tag ${colorClass}`}>
-                  {topping.name} (+${topping.price.toFixed(2)})
+                  {topping.name} (+PKR {topping.price.toFixed(2)})
                 </span>
               );
             })}
           </div>
           <div className={`${styles.totalToppings} text-title`}>
-            Toppings Total: +${selectedToppings.reduce((sum, t) => sum + t.price, 0).toFixed(2)}
+            Toppings Total: +PKR {selectedToppings.reduce((sum, t) => sum + t.price, 0).toFixed(2)}
           </div>
         </div>
       )}

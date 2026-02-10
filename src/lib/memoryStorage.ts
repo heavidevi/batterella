@@ -90,7 +90,7 @@ export const MemoryOrderStorage = {
         discountedAmount: order.totalAmount * 0.9
       });
       
-      console.log(`💰 Added discount approval for ${order.phone}: $${order.totalAmount} → $${(order.totalAmount * 0.9).toFixed(2)}`);
+      console.log(`💰 Added discount approval for ${order.phone}: PKR ${order.totalAmount} → PKR ${(order.totalAmount * 0.9).toFixed(2)}`);
     }
 
     console.log(`✅ Order created in memory: ${newOrder.id} (Total orders: ${orders.length})`);

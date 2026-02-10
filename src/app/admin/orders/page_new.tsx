@@ -191,7 +191,7 @@ export default function OrdersPage() {
                         {item.customName || getProductName(item.product)} x{item.quantity}
                       </span>
                       <span className={styles.itemPrice}>
-                        ${(itemTotal * item.quantity).toFixed(2)}
+                        PKR {(itemTotal * item.quantity).toFixed(2)}
                       </span>
                     </div>
                     {item.toppings && item.toppings.length > 0 && (
@@ -209,17 +209,17 @@ export default function OrdersPage() {
                 {order.originalAmount && order.discountApplied ? (
                   <div className={styles.discountedTotal}>
                     <span className={styles.originalAmount}>
-                      Original: ${order.originalAmount.toFixed(2)}
+                      Original: PKR {order.originalAmount.toFixed(2)}
                     </span>
                     <span className={styles.discountedAmount}>
-                      Total: ${order.totalAmount.toFixed(2)}
+                      Total: PKR {order.totalAmount.toFixed(2)}
                     </span>
                     <span className={styles.savings}>
-                      Saved: ${(order.originalAmount - order.totalAmount).toFixed(2)}
+                      Saved: PKR {(order.originalAmount - order.totalAmount).toFixed(2)}
                     </span>
                   </div>
                 ) : (
-                  <span>Total: ${order.totalAmount.toFixed(2)}</span>
+                  <span>Total: PKR {order.totalAmount.toFixed(2)}</span>
                 )}
                 {order.estimatedTime && (
                   <span className={styles.estimatedTime}>

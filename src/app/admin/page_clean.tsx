@@ -168,11 +168,11 @@ export default function AdminDashboard() {
           <div className={styles.stats}>
             <div className={styles.statCard}>
               <h3>Total Revenue</h3>
-              <div className={styles.statNumber}>${stats.revenue?.toFixed(2) || '0.00'}</div>
+              <div className={styles.statNumber}>PKR {stats.revenue?.toFixed(2) || '0.00'}</div>
             </div>
             <div className={styles.statCard}>
               <h3>Today's Revenue</h3>
-              <div className={styles.statNumber}>${stats.todayRevenue?.toFixed(2) || '0.00'}</div>
+              <div className={styles.statNumber}>PKR {stats.todayRevenue?.toFixed(2) || '0.00'}</div>
             </div>
             <div className={styles.statCard}>
               <h3>All-time Orders</h3>
@@ -215,11 +215,11 @@ export default function AdminDashboard() {
                   <p><strong>Phone:</strong> {order.phone}</p>
                   <p><strong>Type:</strong> {order.type}</p>
                   {(order as any).source && <p><strong>Source:</strong> {(order as any).source}</p>}
-                  <p><strong>Amount:</strong> ${order.totalAmount.toFixed(2)}</p>
+                  <p><strong>Amount:</strong> PKR {order.totalAmount.toFixed(2)}</p>
                   {order.discountApplied && (
                     <p className={styles.discount}>
                       <strong>Discount:</strong> {order.discountApplied}% 
-                      (Original: ${order.originalAmount?.toFixed(2)})
+                      (Original: PKR {order.originalAmount?.toFixed(2)})
                     </p>
                   )}
                   <p><strong>Items:</strong> {order.items.length}</p>

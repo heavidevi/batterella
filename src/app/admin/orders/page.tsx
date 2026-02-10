@@ -295,7 +295,7 @@ export default function OrdersPage() {
                             )}{' '}
                           ×{item.quantity}
                         </span>
-                        <span>${total.toFixed(2)}</span>
+                        <span>PKR {total.toFixed(2)}</span>
                       </div>
                     );
                   }

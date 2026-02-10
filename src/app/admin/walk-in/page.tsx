@@ -179,7 +179,7 @@ export default function WalkInOrderPage() {
                 <div className={styles.productInfo}>
                   <span className={styles.emoji}>{product.emoji}</span>
                   <span className={styles.name}>{product.name}</span>
-                  <span className={styles.price}>${product.price.toFixed(2)}</span>
+                  <span className={styles.price}>PKR {product.price.toFixed(2)}</span>
                 </div>
                 
                 <div className={styles.quantityControls}>
@@ -204,7 +204,7 @@ export default function WalkInOrderPage() {
                 
                 {(formData.quantities[product.id as WalkinProduct] || 0) > 0 && (
                   <div className={styles.itemTotal}>
-                    ${(product.price * (formData.quantities[product.id as WalkinProduct] || 0)).toFixed(2)}
+                    PKR {(product.price * (formData.quantities[product.id as WalkinProduct] || 0)).toFixed(2)}
                   </div>
                 )}
               </div>
@@ -222,7 +222,7 @@ export default function WalkInOrderPage() {
                   {totalItems} item{totalItems > 1 ? 's' : ''}
                 </div>
                 <div className={styles.totalPrice}>
-                  Total: ${totalPrice.toFixed(2)}
+                  Total: PKR {totalPrice.toFixed(2)}
                 </div>
               </div>
             </div>
@@ -258,7 +258,7 @@ export default function WalkInOrderPage() {
                 </div>
                 <div className={styles.stat}>
                   <span className={styles.statLabel}>Total Spent:</span>
-                  <span className={styles.statValue}>${customerHistory.totalSpent.toFixed(2)}</span>
+                  <span className={styles.statValue}>PKR {customerHistory.totalSpent.toFixed(2)}</span>
                 </div>
                 <div className={styles.stat}>
                   <span className={styles.statLabel}>Customer Since:</span>
@@ -270,12 +270,12 @@ export default function WalkInOrderPage() {
               {hasItems && (
                 <div className={styles.discountPreview}>
                   <div className={styles.discountCalc}>
-                    <span className={styles.originalPrice}>Original: ${totalPrice.toFixed(2)}</span>
+                    <span className={styles.originalPrice}>Original: PKR {totalPrice.toFixed(2)}</span>
                     <span className={styles.discountArrow}>→</span>
-                    <span className={styles.discountedPrice}>With 10% Off: ${(totalPrice * 0.9).toFixed(2)}</span>
+                    <span className={styles.discountedPrice}>With 10% Off: PKR {(totalPrice * 0.9).toFixed(2)}</span>
                   </div>
                   <div className={styles.savings}>
-                    You'll save: ${(totalPrice * 0.1).toFixed(2)}
+                    You'll save: PKR {(totalPrice * 0.1).toFixed(2)}
                   </div>
                 </div>
               )}
