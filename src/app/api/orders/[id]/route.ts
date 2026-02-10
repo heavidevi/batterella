@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PersistentOrderStorage } from '@/lib/persistentStorage';
+import { MemoryOrderStorage } from '@/lib/memoryStorage';
 
 // We'll import this dynamically to avoid circular dependency issues
 async function getBroadcastFunction() {
@@ -19,13 +19,26 @@ export async function GET(
   try {
     const { id } = params;
     
+    console.log(`🔍 [GET ORDER] Looking for order: ${id}`);
+    
     // Find order by ID or tracking code
-    let order = await PersistentOrderStorage.getById(id);
+    let order = await MemoryOrderStorage.getById(id);
     
     // If not found by ID, try to find by tracking code
     if (!order) {
-      const allOrders = await PersistentOrderStorage.getAll();
+      console.log(`❌ Order not found by ID: ${id}, trying tracking code...`);
+      const allOrders = await MemoryOrderStorage.getAll();
+      console.log(`📊 Total orders in memory: ${allOrders.length}`);
       order = allOrders.find((o: any) => o.trackingCode === id);
+      
+      if (order) {
+        console.log(`✅ Found order by tracking code: ${order.id}`);
+      } else {
+        console.log(`❌ Order not found by tracking code either`);
+        console.log(`🔍 Available orders:`, allOrders.map(o => ({ id: o.id, trackingCode: o.trackingCode })));
+      }
+    } else {
+      console.log(`✅ Found order by ID: ${order.id}`);
     }
     
     if (!order) {
@@ -36,7 +49,7 @@ export async function GET(
     }
 
     // Include additional tracking information
-    const customer = await PersistentOrderStorage.getCustomerByPhone(order.phone);
+    const customer = await MemoryOrderStorage.getCustomerByPhone(order.phone);
     
     return NextResponse.json({
       ...order,
@@ -74,9 +87,9 @@ export async function PATCH(
     }
 
     // Find order by ID or tracking code
-    let order = await PersistentOrderStorage.getById(id);
+    let order = await MemoryOrderStorage.getById(id);
     if (!order) {
-      const allOrders = await PersistentOrderStorage.getAll();
+      const allOrders = await MemoryOrderStorage.getAll();
       order = allOrders.find((o: any) => o.trackingCode === id);
     }
                 
@@ -93,7 +106,7 @@ export async function PATCH(
     if (estimatedTime) updates.estimatedTime = estimatedTime;
     if (driverPhone) updates.driverPhone = driverPhone;
 
-    const updatedOrder = await PersistentOrderStorage.update(order.id, updates);
+    const updatedOrder = await MemoryOrderStorage.update(order.id, updates);
     
     if (!updatedOrder) {
       return NextResponse.json(
@@ -130,9 +143,9 @@ export async function DELETE(
     const { id } = params;
     
     // Find order by ID or tracking code
-    let order = await PersistentOrderStorage.getById(id);
+    let order = await MemoryOrderStorage.getById(id);
     if (!order) {
-      const allOrders = await PersistentOrderStorage.getAll();
+      const allOrders = await MemoryOrderStorage.getAll();
       order = allOrders.find((o: any) => o.trackingCode === id);
     }
                   
@@ -152,7 +165,7 @@ export async function DELETE(
     }
 
     // Cancel the order
-    const updatedOrder = await PersistentOrderStorage.update(order.id, { status: 'cancelled' });
+    const updatedOrder = await MemoryOrderStorage.update(order.id, { status: 'cancelled' });
 
     if (!updatedOrder) {
       return NextResponse.json(

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { OrderStorage } from '@/lib/storage';
+import { MemoryOrderStorage } from '@/lib/memoryStorage';
 
 export async function POST(request: NextRequest) {
   try {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Read all orders
-    const orders = OrderStorage.getAll();
+    const orders = await MemoryOrderStorage.getAll();
     
     // Find the order by matching the last 6 characters of the ID and phone number
     const order = orders.find(o => 

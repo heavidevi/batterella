@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PersistentOrderStorage } from '@/lib/persistentStorage';
+import { MemoryOrderStorage } from '@/lib/memoryStorage';
 
 // We'll import this dynamically to avoid circular dependency issues
 async function getBroadcastFunction() {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Check if order exists and is eligible for discount
-    const order = await PersistentOrderStorage.getById(orderId);
+    const order = await MemoryOrderStorage.getById(orderId);
     if (!order) {
       return NextResponse.json(
         { error: 'Order not found' },
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Check if order is from repeat customer and not already discounted
     if (!order.isRepeatCustomer) {
       // Optimized double-check: Use cached data and early exit
-      const allOrders = await PersistentOrderStorage.getAll(); // Uses cache
+      const allOrders = await MemoryOrderStorage.getAll(); // Uses cache
       
       // Use efficient filtering with early exit
       let hasDeliveredOrder = false;
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Apply the discount
-    const updatedOrder = await PersistentOrderStorage.applyDiscount(orderId, discountPercent);
+    const updatedOrder = await MemoryOrderStorage.applyDiscount(orderId, discountPercent);
     
     if (!updatedOrder) {
       return NextResponse.json(
@@ -83,29 +83,33 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Auto-confirm the order after discount is applied
+    const confirmedOrder = await MemoryOrderStorage.update(updatedOrder.id, { status: 'confirmed' });
+    
     // Broadcast discount applied update
     const broadcastUpdate = await getBroadcastFunction();
     if (broadcastUpdate) {
       broadcastUpdate({
         type: 'discount_applied',
-        orderId: updatedOrder.id,
-        trackingCode: updatedOrder.trackingCode,
+        orderId: confirmedOrder?.id || updatedOrder.id,
+        trackingCode: confirmedOrder?.trackingCode || updatedOrder.trackingCode,
         discountPercent,
-        originalAmount: updatedOrder.originalAmount,
-        newAmount: updatedOrder.totalAmount,
-        order: updatedOrder
+        originalAmount: confirmedOrder?.originalAmount || updatedOrder.originalAmount,
+        newAmount: confirmedOrder?.totalAmount || updatedOrder.totalAmount,
+        order: confirmedOrder || updatedOrder
       });
     }
     
-    const savings = (updatedOrder.originalAmount || 0) - updatedOrder.totalAmount;
+    const finalOrder = confirmedOrder || updatedOrder;
+    const savings = (finalOrder.originalAmount || 0) - finalOrder.totalAmount;
     
     return NextResponse.json({
       success: true,
-      message: `${discountPercent}% discount applied successfully`,
-      order: updatedOrder,
+      message: `${discountPercent}% discount applied and order confirmed`,
+      order: finalOrder,
       savings: savings.toFixed(2),
-      originalAmount: updatedOrder.originalAmount,
-      discountedAmount: updatedOrder.totalAmount,
+      originalAmount: finalOrder.originalAmount,
+      discountedAmount: finalOrder.totalAmount,
       discountPercent
     });
     

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { PersistentOrderStorage } from '@/lib/persistentStorage';
+import { MemoryOrderStorage } from '@/lib/memoryStorage';
 import { Order } from '@/lib/config';
 
 // We'll import this dynamically to avoid circular dependency issues
@@ -47,8 +47,8 @@ export async function POST(request: NextRequest) {
       return sum + ((productPrice + toppingsPrice) * item.quantity);
     }, 0);
 
-    // Create order using server-side storage
-    const order = await PersistentOrderStorage.create({
+    // Create order using memory storage (works on Vercel)
+    const order = await MemoryOrderStorage.create({
       type: type || 'delivery',
       items,
       phone,
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
 
       // If repeat customer, broadcast discount approval needed
       if (order.isRepeatCustomer) {
-        const customer = await PersistentOrderStorage.getCustomerByPhone(order.phone);
+        const customer = await MemoryOrderStorage.getCustomerByPhone(order.phone);
         broadcastUpdate({
           type: 'discount_approval_needed',
           orderId: order.id,
@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
     const dateFrom = searchParams.get('dateFrom');
     const dateTo = searchParams.get('dateTo');
 
-    let orders = await PersistentOrderStorage.getAll();
+    let orders = await MemoryOrderStorage.getAll();
     
     // Apply filters
     if (status) {
@@ -139,7 +139,7 @@ export async function GET(request: NextRequest) {
     
     return NextResponse.json({
       orders,
-      pendingDiscounts: await PersistentOrderStorage.getPendingDiscountApprovals()
+      pendingDiscounts: await MemoryOrderStorage.getPendingDiscountApprovals()
     }, {
       headers: {
         'Cache-Control': 'public, max-age=10, stale-while-revalidate=30', // 10s cache with 30s stale
