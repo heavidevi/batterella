@@ -2,6 +2,9 @@ import { NextRequest } from 'next/server';
 import { orderManager } from '@/lib/orderManager';
 import { addConnection, removeConnection } from '@/lib/realtime';
 
+// Force dynamic rendering for this API route (prevents static generation)
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   console.log('📡 New real-time connection established');
   
