@@ -27,7 +27,7 @@ export function useRealtime(onUpdate?: (update: RealtimeUpdate) => void) {
       eventSourceRef.current.close();
     }
 
-    const eventSource = new EventSource('/api/sse');
+    const eventSource = new EventSource('/api/realtime');
     eventSourceRef.current = eventSource;
 
     eventSource.onopen = () => {

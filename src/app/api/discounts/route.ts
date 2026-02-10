@@ -4,7 +4,7 @@ import { PersistentOrderStorage } from '@/lib/persistentStorage';
 // We'll import this dynamically to avoid circular dependency issues
 async function getBroadcastFunction() {
   try {
-    const { broadcastUpdate } = await import('../sse/route');
+    const { broadcastUpdate } = await import('@/lib/realtime');
     return broadcastUpdate;
   } catch (error) {
     console.warn('Could not import broadcastUpdate:', error);

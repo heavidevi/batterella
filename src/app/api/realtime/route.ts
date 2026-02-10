@@ -1,8 +1,6 @@
 import { NextRequest } from 'next/server';
 import { orderManager } from '@/lib/orderManager';
-
-// Global array to store active connections
-let connections: ReadableStreamDefaultController<Uint8Array>[] = [];
+import { addConnection, removeConnection } from '@/lib/realtime';
 
 export async function GET(request: NextRequest) {
   console.log('📡 New real-time connection established');
@@ -11,8 +9,7 @@ export async function GET(request: NextRequest) {
   const stream = new ReadableStream({
     start(controller) {      
       // Store the controller for this connection
-      connections.push(controller);
-      console.log(`🔗 Total connections: ${connections.length}`);
+      addConnection(controller);
       
       // Send initial connection confirmation
       try {
@@ -108,31 +105,5 @@ export async function GET(request: NextRequest) {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Cache-Control',
     },
-  });
-}
-
-// Helper function to remove dead connections
-function removeConnection(controller: ReadableStreamDefaultController<Uint8Array>) {
-  const index = connections.indexOf(controller);
-  if (index > -1) {
-    connections.splice(index, 1);
-    console.log(`🗑️ Removed connection. Total: ${connections.length}`);
-  }
-}
-
-// Function to broadcast updates to all connected clients
-export function broadcastUpdate(data: any) {
-  const message = `data: ${JSON.stringify(data)}\n\n`;
-  const encoder = new TextEncoder();
-  const encodedMessage = encoder.encode(message);
-  
-  // Iterate over a shallow copy so we can remove dead connections during iteration
-  connections.slice().forEach(controller => {
-    try {
-      controller.enqueue(encodedMessage);
-    } catch (error) {
-      console.error('Error broadcasting to a connection, removing it:', error);
-      removeConnection(controller);
-    }
   });
 }
