@@ -1,0 +1,231 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: inherit;
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.error h1 {
+  color: var(--error);
+  margin-bottom: 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin: 0 0 0.5rem 0;
+}
+
+.orderId {
+  font-size: 1rem;
+  color: var(--on-surface-variant);
+  margin: 0;
+}
+
+.statusCard {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 2rem;
+  background: var(--primary-container);
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.statusEmoji {
+  font-size: 3rem;
+}
+
+.statusText {
+  flex: 1;
+}
+
+.statusTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--on-primary-container);
+  margin: 0 0 0.5rem 0;
+  text-transform: capitalize;
+}
+
+.statusMessage {
+  font-size: 1rem;
+  color: var(--on-primary-container);
+  margin: 0;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+.timeCard {
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.timeCard h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0 0 0.5rem 0;
+}
+
+.estimatedTime {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.orderDetails {
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.orderDetails h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0 0 1rem 0;
+}
+
+.orderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.infoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.infoRow span:first-child {
+  font-weight: 500;
+  color: var(--on-surface-variant);
+}
+
+.infoRow span:last-child {
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.itemsList {
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.itemsList h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--on-surface);
+  margin: 0 0 1rem 0;
+}
+
+.item {
+  padding: 1rem;
+  background: var(--surface-variant);
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+.itemName {
+  font-weight: 600;
+  color: var(--on-surface);
+  margin-bottom: 0.5rem;
+}
+
+.toppings {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.topping {
+  font-size: 0.875rem;
+  color: var(--on-surface-variant);
+  background: var(--surface);
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  border: 1px solid var(--outline-variant);
+}
+
+.totalAmount {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--outline-variant);
+  border-radius: 12px;
+  margin-bottom: 2rem;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+}
+
+.cancelButton {
+  padding: 1rem 2rem;
+  background: var(--error);
+  color: var(--on-error);
+  border: none;
+  border-radius: 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cancelButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.3);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  
+  .statusCard {
+    padding: 1.5rem;
+    gap: 1rem;
+  }
+  
+  .statusEmoji {
+    font-size: 2rem;
+  }
+  
+  .statusTitle {
+    font-size: 1.25rem;
+  }
+}

@@ -1,0 +1,67 @@
+/* Batterella Brand Colors */
+:root {
+  /* Brand Color Palette */
+  --sage-green: #B6CBBD;
+  --rich-brown: #754E1A;
+  --golden-yellow: #CBA35C;
+  --cream-beige: #F8E1B7;
+  
+  /* Semantic Color Mapping */
+  --primary: var(--sage-green);
+  --primary-dark: #9FB5A6;
+  --primary-light: #C8D6CF;
+  
+  --secondary: var(--golden-yellow);
+  --secondary-dark: #B5994F;
+  --secondary-light: #D6B26F;
+  
+  --accent: var(--rich-brown);
+  --accent-light: #8B6334;
+  
+  --background: var(--cream-beige);
+  --background-alt: #FFEFD0;
+  --surface: #FFFFFF;
+  --surface-variant: #F5F5F5;
+  
+  /* Text Colors */
+  --text-primary: var(--rich-brown);
+  --text-secondary: #5D3F15;
+  --text-muted: #8B7355;
+  --text-on-primary: #FFFFFF;
+  --text-on-secondary: var(--rich-brown);
+  
+  /* Border & Outline */
+  --border: #E0E0E0;
+  --border-focus: var(--primary);
+  --outline: var(--sage-green);
+  
+  /* Status Colors (using brand palette) */
+  --success: var(--sage-green);
+  --warning: var(--golden-yellow);
+  --error: #CC6B47;
+  --info: var(--primary);
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(117, 78, 26, 0.1);
+  --shadow-md: 0 4px 12px rgba(117, 78, 26, 0.15);
+  --shadow-lg: 0 8px 24px rgba(117, 78, 26, 0.2);
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--sage-green), var(--primary-dark));
+  --gradient-secondary: linear-gradient(135deg, var(--golden-yellow), var(--secondary-dark));
+  --gradient-warm: linear-gradient(135deg, var(--cream-beige), var(--background-alt));
+}
+
+/* Dark mode support (optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #2D2520;
+    --background-alt: #3A2F28;
+    --surface: #3A2F28;
+    --surface-variant: #4A3D34;
+    --text-primary: var(--cream-beige);
+    --text-secondary: #C8B59A;
+    --text-muted: #A8956D;
+    --border: #5A4D42;
+  }
+}
