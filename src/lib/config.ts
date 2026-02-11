@@ -4,7 +4,7 @@ export const PRODUCTS = [
     id: 'gingerbread', 
     name: 'Gingerbread', 
     emoji: '👨‍🦲', 
-    price: 90,
+    price: 100,
     image: '/images/gingerbread.jpg',
     description: 'Fresh baked gingerbread with warm spices'
   },
@@ -12,14 +12,14 @@ export const PRODUCTS = [
     id: 'waffle', 
     name: 'Waffle', 
     emoji: '🧇', 
-    price: 200,
+    price: 250,
     image: '/images/waffle.jpg',
     description: 'Crispy golden waffle, perfectly fluffy'
   }
 ] as const;
 
 export const TOPPINGS = [
-  { name: 'Chocolate Syrup', price: 30 },
+  { name: 'Chocolate Syrup', price: 40 },
   { name: 'Nutella', price: 50 },
   { name: 'Waffer', price: 30 },
   { name: 'Oreo', price: 40 },
