@@ -143,7 +143,7 @@ export default function ProductSelectionPage() {
 
                 {quantities[product.id as Product] > 0 && (
                   <div className={`${styles.itemTotal} text-small`}>
-                    Total: PKR {(product.price * quantities[product.id as Product]).toFixed(2)}
+                    Total: PKR {(product.price * quantities[product.id as Product]).toFixed(0)}
                   </div>
                 )}
               </div>
